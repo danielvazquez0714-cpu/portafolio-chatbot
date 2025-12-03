@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librerías de PNL para Chatbots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #0a0a0a;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: #000;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(155,48,255,0.5);
+            animation: fadeInUp 1s ease;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #9b30ff;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #6a0dad, #9b30ff);
+            border-radius: 2px;
+        }
+
+        .category {
+            margin-bottom: 3rem;
+        }
+
+        .category h2 {
+            color: #9b30ff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category h2::before {
+            content: '◆';
+            color: #6a0dad;
+        }
+
+        .library-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .library-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(106,13,173,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #2a2a2a;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .library-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(155,48,255,0.4);
+            border-color: #6a0dad;
+        }
+
+        .card-image {
+            width: 150px;
+            min-width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #000;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            color: #9b30ff;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .card-content p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .btn-install {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-install:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(155,48,255,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .category h2 {
+                font-size: 1.5rem;
+            }
+
+            .library-card {
+                flex-direction: column;
+            }
+
+            .card-image {
+                width: 100%;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Python y Lenguaje Natural</h1>
+            <p>Explorando las mejores herramientas para crear chatbots inteligentes</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="black">
+                <path d="M15 20 L20 15 L18.5 13.5 L15 17 L11.5 13.5 L10 15 Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <div class="content">
+        <h1 class="page-title">Librerías de PNL para Chatbots</h1>
+
+        <div class="category">
+            <h2>Chatbots con PLN</h2>
+            <div class="library-list">
+                <div class="library-card">
+                    <div class="card-image">📚</div>
+                    <div class="card-content">
+                        <h3>NLTK</h3>
+                        <p>Natural Language Toolkit para procesamiento avanzado de texto, tokenización, análisis sintáctico y análisis lingüístico completo.</p>
+                        <a href="nltk-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">⚡</div>
+                    <div class="card-content">
+                        <h3>spaCy</h3>
+                        <p>Biblioteca industrial para PLN de alto rendimiento con modelos preentrenados y procesamiento eficiente a gran escala.</p>
+                        <a href="spacy-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">💬</div>
+                    <div class="card-content">
+                        <h3>TextBlob</h3>
+                        <p>API simple e intuitiva para tareas comunes de procesamiento de lenguaje natural y análisis de sentimientos.</p>
+                        <a href="textblob-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🔍</div>
+                    <div class="card-content">
+                        <h3>Gensim</h3>
+                        <p>Modelado de tópicos, análisis de similitud semántica y procesamiento de documentos con Word2Vec y Doc2Vec.</p>
+                        <a href="gensim-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Chatbots con IA</h2>
+            <div class="library-list">
+                <div class="library-card">
+                    <div class="card-image">🤖</div>
+                    <div class="card-content">
+                        <h3>Rasa</h3>
+                        <p>Framework open-source completo para chatbots contextuales con machine learning, NLU y gestión de diálogos.</p>
+                        <a href="rasa-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🧠</div>
+                    <div class="card-content">
+                        <h3>ChatterBot</h3>
+                        <p>Biblioteca conversacional que aprende automáticamente de las interacciones y genera respuestas basadas en entrenamiento.</p>
+                        <a href="chatterbot-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🚀</div>
+                    <div class="card-content">
+                        <h3>Transformers (Hugging Face)</h3>
+                        <p>Acceso a modelos de lenguaje preentrenados como GPT, BERT, T5 y miles de modelos de última generación.</p>
+                        <a href="transformers-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🔗</div>
+                    <div class="card-content">
+                        <h3>LangChain</h3>
+                        <p>Framework moderno para desarrollar aplicaciones avanzadas con modelos de lenguaje y cadenas de prompts.</p>
+                        <a href="langchain-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Chatbots Conectados a Plataformas</h2>
+            <div class="library-list">
+                <div class="library-card">
+                    <div class="card-image">✈️</div>
+                    <div class="card-content">
+                        <h3>python-telegram-bot</h3>
+                        <p>Wrapper completo y actualizado para la API de Telegram Bot con soporte para comandos, callbacks y multimedia.</p>
+                        <a href="telegram-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">📱</div>
+                    <div class="card-content">
+                        <h3>Twilio API</h3>
+                        <p>Integración profesional con WhatsApp, SMS y otros canales de mensajería para comunicación empresarial.</p>
+                        <a href="twilio-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">👥</div>
+                    <div class="card-content">
+                        <h3>Facebook Messenger API</h3>
+                        <p>Biblioteca oficial para crear bots inteligentes en Facebook Messenger con respuestas rápidas y plantillas.</p>
+                        <a href="facebook-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🎮</div>
+                    <div class="card-content">
+                        <h3>Discord.py</h3>
+                        <p>API wrapper potente para crear bots en Discord con comandos, eventos y integración completa de funciones.</p>
+                        <a href="discord-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Chatbots en Páginas Web</h2>
+            <div class="library-list">
+                <div class="library-card">
+                    <div class="card-image">🌐</div>
+                    <div class="card-content">
+                        <h3>Flask-SocketIO</h3>
+                        <p>Comunicación bidireccional en tiempo real para chatbots web con Flask, WebSockets y soporte de eventos.</p>
+                        <a href="flask-socketio-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">⚙️</div>
+                    <div class="card-content">
+                        <h3>Streamlit</h3>
+                        <p>Creación rápida de interfaces web interactivas y elegantes para chatbots con Python puro, sin HTML/CSS.</p>
+                        <a href="streamlit-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">🎨</div>
+                    <div class="card-content">
+                        <h3>Gradio</h3>
+                        <p>Interfaces web instantáneas para modelos de ML con soporte para chat, ejemplos y compartición en línea.</p>
+                        <a href="gradio-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <div class="card-image">💾</div>
+                    <div class="card-content">
+                        <h3>ChatterBot-Corpus</h3>
+                        <p>Conjuntos de datos multiidioma de entrenamiento para chatbots web con conversaciones predefinidas y contextos.</p>
+                        <a href="corpus-install.html" class="btn-install">Ver Instalación</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
