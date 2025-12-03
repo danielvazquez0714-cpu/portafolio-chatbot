@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación spaCy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #000;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #000;
+            color: #9b30ff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a1a1a;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid #2a2a2a;
+        }
+
+        .section h2 {
+            color: #9b30ff;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #b19cd9;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .code-block {
+            background: #000;
+            border: 1px solid #6a0dad;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #9b30ff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #6a0dad;
+            color: #000;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #9b30ff;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(155,48,255,0.5);
+        }
+
+        .info-box {
+            background: #2a1a4a;
+            border-left: 4px solid #9b30ff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            color: #000;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        ul.bullet-list {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        ul.bullet-list li {
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+        }
+
+        .warning-box {
+            background: #4a2a1a;
+            border-left: 4px solid #ff9b30;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="icon">⚡</div>
+        <h1>spaCy</h1>
+        <p>Biblioteca industrial de PLN de alto rendimiento</p>
+        <a href="index.html" class="back-btn">← Volver al inicio</a>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>📥 Instalación</h2>
+            
+            <h3>Requisitos Previos</h3>
+            <ul class="bullet-list">
+                <li>Python 3.7 o superior</li>
+                <li>pip (gestor de paquetes de Python)</li>
+                <li>64-bit Python (requerido para modelos grandes)</li>
+            </ul>
+
+            <h3>Paso 1: Instalar spaCy</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>pip install spacy</code>
+            </div>
+
+            <h3>Paso 2: Descargar modelo de idioma</h3>
+            <p><strong>Para español (recomendado):</strong></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>python -m spacy download es_core_news_sm</code>
+            </div>
+
+            <p><strong>Modelo grande en español (mayor precisión):</strong></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>python -m spacy download es_core_news_lg</code>
+            </div>
+
+            <p><strong>Para inglés:</strong></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>python -m spacy download en_core_web_sm</code>
+            </div>
+
+            <div class="info-box">
+                <p><strong>💡 Tip:</strong> Los modelos "sm" (small) son más rápidos pero menos precisos. Los modelos "lg" (large) son más precisos pero requieren más memoria.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Ejemplo de Uso</h2>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>import spacy
+
+# Cargar modelo en español
+nlp = spacy.load("es_core_news_sm")
+
+# Procesar texto
+texto = "Apple está buscando comprar una startup en España por mil millones de dólares"
+doc = nlp(texto)
+
+# Extraer entidades nombradas
+print("Entidades encontradas:")
+for entidad in doc.ents:
+    print(f"{entidad.text} - {entidad.label_}")
+
+# Análisis de tokens
+print("\nAnálisis de tokens:")
+for token in doc:
+    print(f"{token.text:15} {token.pos_:10} {token.dep_}")
+
+# Similitud entre textos
+doc1 = nlp("Me gusta programar en Python")
+doc2 = nlp("Me encanta codificar en Python")
+print(f"\nSimilitud: {doc1.similarity(doc2):.2f}")</code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Características Principales</h2>
+            <ul class="steps">
+                <li>
+                    <strong>Procesamiento Rápido:</strong> Diseñado para producción con rendimiento optimizado en C
+                </li>
+                <li>
+                    <strong>Modelos Preentrenados:</strong> Múltiples idiomas con modelos listos para usar
+                </li>
+                <li>
+                    <strong>NER Avanzado:</strong> Reconocimiento de entidades nombradas (personas, organizaciones, lugares)
+                </li>
+                <li>
+                    <strong>Dependency Parsing:</strong> Análisis sintáctico de dependencias entre palabras
+                </li>
+                <li>
+                    <strong>Vectores de Palabras:</strong> Word embeddings para análisis semántico
+                </li>
+                <li>
+                    <strong>Pipeline Personalizable:</strong> Añade tus propios componentes al pipeline de procesamiento
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Modelos Disponibles</h2>
+            
+            <h3>Español</h3>
+            <ul class="bullet-list">
+                <li><strong>es_core_news_sm</strong> - Pequeño (13 MB)</li>
+                <li><strong>es_core_news_md</strong> - Mediano (43 MB) con vectores</li>
+                <li><strong>es_core_news_lg</strong> - Grande (560 MB) con vectores completos</li>
+            </ul>
+
+            <h3>Inglés</h3>
+            <ul class="bullet-list">
+                <li><strong>en_core_web_sm</strong> - Pequeño (13 MB)</li>
+                <li><strong>en_core_web_md</strong> - Mediano (43 MB) con vectores</li>
+                <li><strong>en_core_web_lg</strong> - Grande (560 MB) con vectores completos</li>
+                <li><strong>en_core_web_trf</strong> - Transformer (438 MB) máxima precisión</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Nota:</strong> Los modelos Transformer requieren más memoria RAM y tiempo de procesamiento, pero ofrecen la mayor precisión.</p>
+            </div>
+        </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '✓ Copiado';
+                setTimeout(() => {
+                    button.textContent = 'Copiar';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación TextBlob</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #000;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #000;
+            color: #9b30ff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1a1a1a;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid #2a2a2a;
+        }
+
+        .section h2 {
+            color: #9b30ff;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #b19cd9;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .code-block {
+            background: #000;
+            border: 1px solid #6a0dad;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #9b30ff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #6a0dad;
+            color: #000;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #9b30ff;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(155,48,255,0.5);
+        }
+
+        .info-box {
+            background: #2a1a4a;
+            border-left: 4px solid #9b30ff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #1a4a2a;
+            border-left: 4px solid #30ff9b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30ff 100%);
+            color: #000;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        ul.bullet-list {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        ul.bullet-list li {
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .feature-card {
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #9b30ff;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="icon">💬</div>
+        <h1>TextBlob</h1>
+        <p>API simple para procesamiento de lenguaje natural</p>
+        <a href="index.html" class="back-btn">← Volver al inicio</a>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>📥 Instalación</h2>
+            
+            <h3>Requisitos Previos</h3>
+            <ul class="bullet-list">
+                <li>Python 3.6 o superior</li>
+                <li>pip (gestor de paquetes de Python)</li>
+            </ul>
+
+            <h3>Paso 1: Instalar TextBlob</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>pip install textblob</code>
+            </div>
+
+            <h3>Paso 2: Descargar corpus de NLTK</h3>
+            <p>TextBlob usa datos de NLTK, descárgalos ejecutando:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>python -m textblob.download_corpora</code>
+            </div>
+
+            <div class="success-box">
+                <p><strong>✓ ¡Listo!</strong> TextBlob está instalado y configurado correctamente.</p>
+            </div>
+
+            <h3>Instalación Alternativa (con extensiones)</h3>
+            <p>Para incluir extensiones adicionales como traducción:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>pip install textblob[all]</code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Ejemplos de Uso</h2>
+            
+            <h3>Análisis de Sentimientos</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>from textblob import TextBlob
+
+# Crear objeto TextBlob
+texto = TextBlob("I love programming in Python! It's amazing.")
+
+# Análisis de sentimientos
+sentimiento = texto.sentiment
+print(f"Polaridad: {sentimiento.polarity}")  # -1 a 1 (negativo a positivo)
+print(f"Subjetividad: {sentimiento.subjectivity}")  # 0 a 1 (objetivo a subjetivo)</code>
+            </div>
+
+            <h3>Tokenización y Part-of-Speech</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>from textblob import TextBlob
+
+texto = TextBlob("Python is a powerful programming language")
+
+# Extraer palabras
+print(texto.words)
+
+# Extraer oraciones
+print(texto.sentences)
+
+# Part-of-speech tagging
+print(texto.tags)</code>
+            </div>
+
+            <h3>Traducción y Detección de Idioma</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>from textblob import TextBlob
+
+# Traducir texto
+texto = TextBlob("Hello, how are you?")
+traduccion = texto.translate(to='es')
+print(traduccion)  # "Hola, ¿cómo estás?"
+
+# Detectar idioma
+texto2 = TextBlob("Bonjour le monde")
+print(texto2.detect_language())  # 'fr'</code>
+            </div>
+
+            <h3>Corrección Ortográfica</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>from textblob import TextBlob
+
+texto = TextBlob("I havv goood speling")
+corregido = texto.correct()
+print(corregido)  # "I have good spelling"</code>
+            </div>
+
+            <h3>Lemmatización</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                <code>from textblob import Word
+
+# Lemmatizar palabras
+palabra = Word("running")
+print(palabra.lemmatize("v"))  # "run" (verbo)
+
+palabra2 = Word("wolves")
+print(palabra2.lemmatize())  # "wolf"</code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Características Principales</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <strong>😊 Análisis de Sentimientos</strong>
+                    <p>Determina polaridad y subjetividad del texto</p>
+                </div>
+                <div class="feature-card">
+                    <strong>🔤 Tokenización</strong>
+                    <p>Divide texto en palabras y oraciones</p>
+                </div>
+                <div class="feature-card">
+                    <strong>🏷️ POS Tagging</strong>
+                    <p>Identifica partes del discurso</p>
+                </div>
+                <div class="feature-card">
+                    <strong>🌍 Traducción</strong>
+                    <p>Traduce entre múltiples idiomas</p>
+                </div>
+                <div class="feature-card">
+                    <strong>✍️ Corrección Ortográfica</strong>
+                    <p>Corrige errores de escritura</p>
+                </div>
+                <div class="feature-card">
+                    <strong>📊 Frecuencia de Palabras</strong>
+                    <p>Cuenta ocurrencias de palabras</p>
+                </div>
+                <div class="feature-card">
+                    <strong>🔍 N-gramas</strong>
+                    <p>Extrae secuencias de palabras</p>
+                </div>
+                <div class="feature-card">
+                    <strong>🌱 Lemmatización</strong>
+                    <p>Reduce palabras a su forma base</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Ventajas de TextBlob</h2>
+            <ul class="steps">
+                <li>
+                    <strong>API Intuitiva:</strong> Sintaxis simple y fácil de aprender, ideal para principiantes
+                </li>
+                <li>
+                    <strong>Basado en NLTK:</strong> Aprovecha la potencia de NLTK con una interfaz más amigable
+                </li>
+                <li>
+                    <strong>Traducción Integrada:</strong> Usa Google Translate sin configuración adicional
+                </li>
+                <li>
+                    <strong>Análisis Rápido:</strong> Perfecto para prototipos y análisis exploratorio
+                </li>
+                <li>
+                    <strong>Extensible:</strong> Permite crear clasificadores personalizados
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>💡 Casos de Uso Ideales</h2>
+            <div class="info-box">
+                <ul class="bullet-list">
+                    <li><strong>Análisis de Opiniones:</strong> Reviews de productos, comentarios en redes sociales</li>
+                    <li><strong>Chatbots Simples:</strong> Procesamiento básico de consultas de usuarios</li>
+                    <li><strong>Herramientas de Escritura:</strong> Corrección ortográfica y sugerencias</li>
+                    <li><strong>Análisis de Texto:</strong> Extracción de información básica de documentos</li>
+                    <li><strong>Prototipos Rápidos:</strong> Validación de ideas de PLN sin complejidad</li>
+                </ul>
+            </div>
+        </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '✓ Copiado';
+                setTimeout(() => {
+                    button.textContent = 'Copiar';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
